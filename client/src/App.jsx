@@ -11,6 +11,8 @@ import Footer from './components/Footer/Footer';
 import men_banner from "./components/Assets/banner_mens.png";
 import women_banner from "./components/Assets/banner_women.png";
 import kid_banner from "./components/Assets/banner_kids.png";
+import Success from './components/Success';
+import PaymentFailedPage from './components/Cancel';
 
 export default function App() {
   return (
@@ -27,6 +29,8 @@ export default function App() {
           </Route>
           <Route path='/cart' element={<Cart/>}></Route>
           <Route path='/login' element={<Login/>}></Route>
+          <Route path='/success' element={<Success/>}></Route>
+          <Route path='/cancel' element={<PaymentFailedPage/>}></Route>
         </Routes>
         <Footer/>
       </BrowserRouter>

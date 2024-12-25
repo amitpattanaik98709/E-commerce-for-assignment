@@ -5,10 +5,10 @@ import cross_icon from "../../assets/cross_icon.png"
 export default function Listproduct() {
 
   const [allproducts, setallproducts] = useState([]);
-  const url="https://e-commerce-backend-2iit.onrender.com";
+  const url="http://localhost:5000";
 
   const fetchinfo = async () => {
-    await fetch("https://e-commerce-backend-2iit.onrender.com/allproducts")
+    await fetch("http://localhost:5000/allproducts")
       .then((res) => res.json())
       .then((data) => setallproducts(data))
   }
@@ -18,7 +18,7 @@ export default function Listproduct() {
   }, [])
 
   const remove_Product=async(id)=>{
-    await fetch("https://e-commerce-backend-2iit.onrender.com/removeproduct",{
+    await fetch("http://localhost:5000/removeproduct",{
       method:"POST",
       headers:{
         Accept:"application/json",

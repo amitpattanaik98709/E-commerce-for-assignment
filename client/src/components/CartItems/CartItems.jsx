@@ -1,12 +1,45 @@
 import React, { useContext } from 'react'
-import "./CartItems.css"
 import { ShopContext } from '../../context/ShopContext';
 import remove_icon from "../Assets/cart_cross_icon.png"
+import "./CartItems.css"
+import {loadStripe} from '@stripe/stripe-js';
 
 export default function CartItems() {
 
     const { getTotalcartAmount, all_product, cartItems, removeFromCart } = useContext(ShopContext);
-    const url="https://e-commerce-backend-2iit.onrender.com";
+    const url="http://localhost:5000";
+
+    const makepayment = async () => {
+        const stripe = await loadStripe('pk_test_51Pt1NCGwu7WfDqJU4OlQm0xrOJf6W63Ccg20CjPUZe7xKkISIHmL6RMvneFf3rCl31roSBf1gUJdzgqO4iJIJq9T00KcqVqEXY');
+
+        console.log("stripe funct");
+
+        const body = {
+            product: 84.03 * getTotalcartAmount()
+        }
+        console.log(body);
+
+        const headers = {
+            "Content-Type": "application/json"
+        }
+        const response = await fetch("http://localhost:5000/payment", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(body)
+        })
+
+        const session = await response.json();
+
+        const result = stripe.redirectToCheckout({
+            sessionId: session.id
+        })
+
+        if (result.error) {
+            console.log(result.error);
+
+        }
+    }
+
 
     return (
         <div className='cartitems'>
@@ -41,7 +74,7 @@ export default function CartItems() {
                     <div>
                         <div className="cartitems-total-item">
                             <p>Subtotal</p>
-                            <p>${getTotalcartAmount()}</p>
+                            <p>₹{getTotalcartAmount()}</p>
                         </div>
                         <hr />
                         <div className="cartitems-total-item">
@@ -51,16 +84,16 @@ export default function CartItems() {
                         <hr />
                         <div className="cartitems-total-item">
                             <h3>Total</h3>
-                            <h3>${getTotalcartAmount()}</h3>
+                            <h3>₹{getTotalcartAmount()}</h3>
                         </div>
                     </div>
-                    <button>PROCEED TO CHECKOUT</button>
+                    {getTotalcartAmount()>0?<button onClick={makepayment}>PROCEED TO CHECKOUT</button>:null}
                 </div>
                 <div className="cartitems-promocode">
                     <p>if you have a promocode , Enter it here</p>
                     <div className='cartitems-promobox'>
                         <input type="text" placeholder='promo code' />
-                        <button>Submit</button>
+                        {getTotalcartAmount()>0?<button onClick={makepayment}>Submit</button>:null}
                     </div>
                 </div>
             </div>
