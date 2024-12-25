@@ -338,8 +338,8 @@ app.post("/payment", async (req, res) => {
     // payment_methods_types:["card"],
     line_items: lineitems,
     mode: "payment",
-    success_url: "http://localhost:5173/success",
-    cancel_url: "http://localhost:5173/cancel",
+    success_url: "https://e-commerce-hat0.onrender.com/success",
+    cancel_url: "https://e-commerce-hat0.onrender.com/cancel",
   });
 
   res.json({ id: session.id });
