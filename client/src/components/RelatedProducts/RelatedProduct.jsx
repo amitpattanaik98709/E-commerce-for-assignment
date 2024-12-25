@@ -9,7 +9,7 @@ export default function RelatedProduct({ product }) {
 
   useEffect(() => {
     const category = product.category;
-    fetch("http://localhost:5000/relatedproducts", {
+    fetch("https://e-commerce-hat0.onrender.com/relatedproducts", {
       method: "POST",
       headers: {
         Accept: "application/json",
