@@ -7,7 +7,7 @@ import {loadStripe} from '@stripe/stripe-js';
 export default function CartItems() {
 
     const { getTotalcartAmount, all_product, cartItems, removeFromCart } = useContext(ShopContext);
-    const url="http://localhost:5000";
+    const url="https://e-commerce-hat0.onrender.com";
 
     const makepayment = async () => {
         const stripe = await loadStripe('pk_test_51Pt1NCGwu7WfDqJU4OlQm0xrOJf6W63Ccg20CjPUZe7xKkISIHmL6RMvneFf3rCl31roSBf1gUJdzgqO4iJIJq9T00KcqVqEXY');
@@ -22,7 +22,7 @@ export default function CartItems() {
         const headers = {
             "Content-Type": "application/json"
         }
-        const response = await fetch("http://localhost:5000/payment", {
+        const response = await fetch("https://e-commerce-hat0.onrender.com/payment", {
             method: "POST",
             headers: headers,
             body: JSON.stringify(body)
